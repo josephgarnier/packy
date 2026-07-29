@@ -20,7 +20,7 @@
   <a rel="ci" href="https://github.com/mnchapel/cooking/actions"><img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/mnchapel/cooking/pages-build-deployment?logo=github&label=Build/CI"></a>
   <img alt="GitHub deployments" src="https://img.shields.io/github/deployments/mnchapel/cooking/pages-build-deployment?logo=github&label=deployment">
   <img alt="Codecov" src="https://img.shields.io/codecov/c/github/mnchapel/cooking?logo=codecov">
-  <img alt="No AI" src="https://custom-icon-badges.demolab.com/badge/No%20AI-2f2f2f?logo=non-ai&logoColor=white">
+  <img alt="No Vibe-Coding" src="https://custom-icon-badges.demolab.com/badge/No Vibe Coding-2f2f2f?logo=non-ai&logoColor=white">
 </p>
 
 PackY is a simple and intuitive application designed to create batch file archives. A common use case is to archive configuration files from installed softwares into separate containers, all grouped within a single directory. This project is currently under development, and this page will be updated with additional information over time.
@@ -57,7 +57,7 @@ PackY is a simple and intuitive application designed to create batch file archiv
 - [PySide6](https://doc.qt.io/qtforpython-6/index.html) and [its tools](https://doc.qt.io/qtforpython-6/tools/index.html) - UI Qt framework for Python (in [pythonic version](https://doc.qt.io/qtforpython-6/considerations.html#features)).
 - [JSON Schema in Python](https://pypi.org/project/jsonschema/) - An implementation of JSON Schema validation for Python
 - [PyYAML](https://pypi.org/project/PyYAML/) - YAML parser
-- [pytest](https://docs.pytest.org/en/stable/index.html) - A framework for unit tests
+- [pytest](https://docs.pytest.org/en/stable/index.html) and [pytest-qt](https://pypi.org/project/pytest-qt/) - A framework for unit tests
 - [pipreqs](https://pypi.org/project/pipreqs/) - A requirements.txt file generator for any project based on imports
 - [PyInstaller](https://pypi.org/project/pyinstaller/) - Tool to bundle the app and all its dependencies into a single package
 - [Inno Setup](https://jrsoftware.org/isinfo.php) - An installation builder for Windows applications
@@ -118,7 +118,7 @@ Therefore, [Visual Studio Code](https://code.visualstudio.com/) is recommended, 
 - [Qt Python Extension Pack](https://marketplace.visualstudio.com/items?itemName=TheQtCompany.qt-python-pack) (see [the doc](https://doc.qt.io/qtforpython-6/tools/vscode-ext.html)).
 - [Ruff extension](https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff) (see [the doc](https://docs.astral.sh/ruff/)).
 
-For UI design, [Qt Designer](https://doc.qt.io/qt-6/qtdesigner-manual.html) is recommanded, as well as [Qt Linguist](https://doc.qt.io/qt-6/qtlinguist-index.html) for editing translation files.
+For UI design, [Qt Designer](https://doc.qt.io/qt-6/qtdesigner-manual.html) is recommended, as well as [Qt Linguist](https://doc.qt.io/qt-6/qtlinguist-index.html) for editing translation files.
 
 ### Setup the environment
 
@@ -158,6 +158,8 @@ For UI design, [Qt Designer](https://doc.qt.io/qt-6/qtdesigner-manual.html) is r
       pip install pyyaml
       pip install jsonschema
       pip install pytest
+      pip install pytest-mock
+      pip install pytest-qt
       ```
 
 4. Regenerate the Qt Python stub files using the `pyside6-genpyi` tool to enable the `snake_case` features and properties in the Qt API:
@@ -181,7 +183,9 @@ For UI design, [Qt Designer](https://doc.qt.io/qt-6/qtdesigner-manual.html) is r
 
 ### Building
 
-Building the application involves compiling resources (QRC files), UI files, and QML files into python files, and TS files into a binary form (QM files) that PySide can interpret, using the `build` subcommand of the [`pyside6-project` tool](https://doc.qt.io/qtforpython-6/tools/pyside-project.html). This Qt subcommand implicitly calls the [pyside6-lrelease](https://doc.qt.io/qtforpython-6/tools/pyside-lrelease.html), [pyside6-uic](https://doc.qt.io/qtforpython-6/tools/pyside-uic.html), and [pyside6-rcc](https://doc.qt.io/qtforpython-6/tools/pyside-rcc.html) commands. To determine which files to compile, the `build` subcommand scans the list of files defined in the `tool.pyside6-project.files` table of the `pyproject.toml` file. This list must therefore always be kept up to date. Unfortunately, by default this process is manual; for this reason, the project provides the `update_pyproject_file.py` script, which scans the source files and updates the table accordingly. This script must be executed before running the `build` subcommand. Similarly, the translation files (TS files in the `i18n/` directory)must be up to date and contain all application strings before being converted into a binary form (QM files). To ensure this, a scan of the source code is performed to extract any missing strings.
+Building the application involves compiling resources (QRC files), UI files, and QML files into python files, and TS files into a binary form (QM files) that PySide can interpret, using the `build` subcommand of the [`pyside6-project` tool](https://doc.qt.io/qtforpython-6/tools/pyside-project.html). This Qt subcommand implicitly calls the [pyside6-lrelease](https://doc.qt.io/qtforpython-6/tools/pyside-lrelease.html), [pyside6-uic](https://doc.qt.io/qtforpython-6/tools/pyside-uic.html), and [pyside6-rcc](https://doc.qt.io/qtforpython-6/tools/pyside-rcc.html) commands.
+
+To determine which files to compile, the `build` subcommand scans the list of files defined in the `tool.pyside6-project.files` table of the `pyproject.toml` file. This list must therefore always be kept up to date. Unfortunately, by default this process is manual; for this reason, the project provides the `update_pyproject_file.py` script, which scans the source files and updates the table accordingly. This script must be executed before running the `build` subcommand. Similarly, the translation files (TS files in the `i18n/` directory) must be up to date and contain all application strings before being converted into a binary form (QM files). To ensure this, a scan of the source code is performed to extract any missing strings.
 
 Before running all these operations and building the project, it is recommended, at least the first time, to perform a full cleanup of files that may have been generated by a previous build. To **clean Packy**, open a terminal in the project's Conda virtual environment, then run the following command:
 
@@ -202,13 +206,45 @@ pyside6-lupdate -extensions "ui,py,qs,qml,qrc" -sort-messages -recursive -locati
 pyside6-project build "pyproject.toml"
 ```
 
-In VS Code, the `PackY: Build` task can be used to build the project and run these commands. The update script can also be executed independently using the `PackY: Update PyProject file` task, and the translation files can be updated independently using the `PackY: Update translation files` task. The `PackY: Build` task runs these two tasks beforehand to complete the entire process.
+In VS Code, the `PackY: Build` task can be used to build the project and run these commands. Also, the update script can be executed independently using the `PackY: Update PyProject file` task, and the translation files can be updated independently using the `PackY: Update translation files` task. The `PackY: Build` task runs these two tasks beforehand to complete the entire process.
 
 To compile only the UI files, run the command `python "scripts/convert_ui_to_py.py"`, or, from VS Code, use the `PackY: Compile .ui` task. This method is, however, *deprecated* in favor of `PackY: Build`.
 
 More information about these commands can be found in the [Useful commands](#useful-commands) section.
 
 ### Testing
+
+Unit and functional tests are located in the `tests/` directory and test data in `tests/data/`. Each Python module to be tested must have its own dedicated test file. Test files follow the naming convention `test_<SCRIPT_NAME>.py`, where `<SCRIPT_NAME>` is the name of the module under test written in snake_case.
+
+Tests are written using the [pytest](https://docs.pytest.org/en/stable/index.html), [pytest-mock](https://pytest-mock.readthedocs.io/en/latest/) and [pytest-qt](https://pypi.org/project/pytest-qt/) libraries. Each test file is divided into classes containing test functions. Test classes group related tests by functionality, and each test function must verify a single behavior or functionality. Test functions are therefore grouped into classes by functionality.
+
+Test functions follow the naming convention `test_<FUNCTION_NAME>_<SCENARIO>_<EXPECTED_OUTCOME>`, written entirely in snake_case, where:
+
+- `<FUNCTION_NAME>` is the name of the function under test.
+- `<SCENARIO>` describes the test scenario.
+- `<EXPECTED_OUTCOME>` describes the expected result.
+
+To **run the tests**, follow these steps:
+
+1. Open a terminal in the folder containing the project, then activate a virtual environment with Conda:
+
+    ```bash
+    conda activate <ENV_NAME>
+    ```
+
+    Replace the following:
+
+    - `<ENV_NAME>`: The name of the previously configured environment.
+
+2. Run the test suite:
+
+    ```bash
+    pytest
+    ```
+
+In VS Code, the `PackY: Test` task can be used to run the test suite and execute these commands automatically. The [Python extension](https://code.visualstudio.com/docs/python/testing) can also be used to benefit from its built-in test discovery and code coverage visualization.
+
+The document [*Writing test case scenario*](docs/writing_test_case_scenario.md) in `docs/` can help with writing tests.
 
 ### Deployment
 
@@ -321,9 +357,7 @@ The usage of commands and scripts is described below in the order of a typical d
   echo i18n/packy_<ISO_LOCAL_CODE>.ts>>"i18n/translations.txt"
   ```
 
-  Where:
-
-  - `<ISO_LOCAL_CODE>` : An ISO locale code following the format `<LANG_CODE>-<COUNTRY_CODE>`. A full list can be found [here](https://simplelocalize.io/data/locales/).
+  Where `<ISO_LOCAL_CODE>` is an ISO locale code following the format `<LANG_CODE>-<COUNTRY_CODE>`. A full list can be found [here](https://simplelocalize.io/data/locales/).
 
   - VS Code task: `PackY: Add new translation file`.
   - **Note:** This task should not be used independently, but only as part of the [procedure for adding a translation file](#add-translations).
@@ -396,7 +430,7 @@ project-root/
 │   ├── ui/                        # Qt Designer .ui files (interface definitions)
 │   ├── utils/                     # Shared utilities, helpers, and common functions
 │   ├── views/                     # UI components and view logic
-│   └── main.js                    # Application entry point and initialization logic
+│   └── main.py                    # Application entry point and initialization logic
 ├── resources/                     # Static resources used by the application
 │   ├── img/                       # Images, icons, and graphical assets
 │   ├── json/                      # JSON configuration and schema files
@@ -408,8 +442,7 @@ project-root/
 ├── CODE_OF_CONDUCT.md             # Contribution guidelines and community standards
 ├── LICENSE.md                     # Project license information
 ├── packy.spec                     # PyInstaller configuration file for building the executable
-├── pyproject.toml                 # Project configuration (build system, dependencies, tools)
-├── pytest.ini                     # Pytest configuration file
+├── pyproject.toml                 # Project configuration (build system, test, dependencies, tools)
 ├── README.md                      # Project overview and main documentation
 ├── requirements.txt               # List of Python dependencies required to run the project
 ├── ruff.toml                      # Linting and code formatting configuration (Ruff)
@@ -460,6 +493,11 @@ General links:
 - [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html)
 - [Conventional Commits style](https://www.conventionalcommits.org/)
 
+Sphinx documentation:
+
+- [reStructuredText](https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html)
+- [The Python Domain](https://www.sphinx-doc.org/en/master/usage/domains/python.html)
+
 Qt documentation:
 
 - [Qt for Python](https://doc.qt.io/qtforpython-6/index.html)
@@ -477,6 +515,8 @@ Other tools documentation:
 - [JSON Schema](https://json-schema.org/)
 - [PyYAML](https://pyyaml.org/)
 - [pytest](https://docs.pytest.org/en/stable/index.html)
+- [pytest-mock](https://pytest-mock.readthedocs.io/en/latest/)
+- [pytest-qt](https://pypi.org/project/pytest-qt/)
 - [pipreqs](https://github.com/bndr/pipreqs)
 - [PyInstaller](https://pyinstaller.org/en/stable/)
 - [Ruff](https://docs.astral.sh/ruff/)
@@ -522,32 +562,32 @@ Follow these steps (from the [official procedure](https://doc.qt.io/qt-6/linguis
 
 2. Run a scan of the source code to extract strings and populate the new translation file:
 
-  ```bash
-  pyside6-lupdate -extensions "ui,py,qs,qml,qrc" -sort-messages -recursive -locations relative -tr-function-alias "QT_TR_NOOP+=PACKY_TR_NOOP,QT_TRANSLATE_NOOP+=PACKY_TRANSLATE_NOOP" . -ts "i18n/packy_<ISO_LOCAL_CODE>.ts"
-  ```
+    ```bash
+    pyside6-lupdate -extensions "ui,py,qs,qml,qrc" -sort-messages -recursive -locations relative -tr-function-alias "QT_TR_NOOP+=PACKY_TR_NOOP,QT_TRANSLATE_NOOP+=PACKY_TRANSLATE_NOOP" . -ts "i18n/packy_<ISO_LOCAL_CODE>.ts"
+    ```
 
-  Replace the following:
+    Replace the following:
 
-  - `<ISO_LOCAL_CODE>` : The same ISO locale code used in step 1.
+    - `<ISO_LOCAL_CODE>` : The same ISO locale code used in step 1.
 
 3. Generate the QM file (a compact binary format that the localized application uses pour extremely fast lookup for translations) out of TS file:
 
-  ```bash
-  pyside6-lrelease "i18n/packy_<ISO_LOCAL_CODE>.ts" -qm "i18n/packy_<ISO_LOCAL_CODE>.qm"
-  ```
+    ```bash
+    pyside6-lrelease "i18n/packy_<ISO_LOCAL_CODE>.ts" -qm "i18n/packy_<ISO_LOCAL_CODE>.qm"
+    ```
 
-  Replace the following:
+    Replace the following:
 
-  - `<ISO_LOCAL_CODE>` : The same ISO locale code used in step 1.
+    - `<ISO_LOCAL_CODE>` : The same ISO locale code used in step 1.
 
 4. Using a text editor or [Qt Designer](https://doc.qt.io/qt-6/qtdesigner-manual.html), open the resource file `resources/packy.qrc` and add the path to the generated QM file inside the `/i18n` prefix, using the locale as the alias:
 
-  ```xml
-  <qresource prefix="/i18n">
-    ...
-    <file alias="<ISO_LOCAL_CODE>">../i18n/packy_<ISO_LOCAL_CODE>.qm</file>
-  </qresource>
-  ```
+    ```xml
+    <qresource prefix="/i18n">
+      ...
+      <file alias="<ISO_LOCAL_CODE>">../i18n/packy_<ISO_LOCAL_CODE>.qm</file>
+    </qresource>
+    ```
 
 5. Save the changes. The new translation file is now integrated into PackY.
 
@@ -557,9 +597,9 @@ Follow these steps to **translate PackY text**:
 
 1. Update the translation files (TS files) by running the `PackY: Update translation files` task or by executing the following command in a terminal:
 
-  ```bash
-  pyside6-lupdate -extensions "ui,py,qs,qml,qrc" -sort-messages -recursive -locations relative -tr-function-alias "QT_TR_NOOP+=PACKY_TR_NOOP,QT_TRANSLATE_NOOP+=PACKY_TRANSLATE_NOOP" . -ts "@i18n/translations.txt"
-  ```
+    ```bash
+    pyside6-lupdate -extensions "ui,py,qs,qml,qrc" -sort-messages -recursive -locations relative -tr-function-alias "QT_TR_NOOP+=PACKY_TR_NOOP,QT_TRANSLATE_NOOP+=PACKY_TRANSLATE_NOOP" . -ts "@i18n/translations.txt"
+    ```
 
 2. Launch Qt Linguist, then open the TS file for the desired language located in the `i18n/` directory.
 

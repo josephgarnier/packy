@@ -29,12 +29,16 @@ dependencies = [
   "pyyaml==6.0.3",
   "jsonschema==4.26.0",
   "pytest==9.0.3",
+  "pytest-mock==3.15.1",
+  "pytest-qt==4.5.0",
 ]
 requires-python = ">= 3.14.3"
 
 [project.optional-dependencies]
 tests = [
-  "pytest==9.0.3"
+  "pytest==9.0.3",
+  "pytest-mock==3.15.1",
+  "pytest-qt==4.5.0",
 ]
 
 [project.urls]
@@ -45,9 +49,22 @@ Repository = "https://github.com/mnchapel/packy"
 Changelog = "https://github.com/mnchapel/packy/CHANGELOG.md"
 
 [tool.distutils.build_exe]
-includes = ["core", "models", "views", "ui/generated", "utils"]
+includes = ["constants", "core", "models", "task", "ui", "utils", "views", "widgets"]
 excludes = ["tkinter", "unittest"]
 include_files = ["resources"]
+
+[tool.pyright]
+typeCheckingMode = "strict"
+
+[tool.pytest]
+addopts = ["-vvv", "-ra", "--import-mode=importlib"]
+cache_dir= "tests/.pytest_cache"
+console_output_style = "classic"
+minversion = "9.0.3"
+pythonpath = ["packy"]
+testpaths = ["tests"]
+norecursedirs = ["data"]
+required_plugins = ["pytest-qt>=4.5.0"]
 
 [tool.pyside6-project]
 # The list of options can be seen with the command `pyside6-project --help` and on the page <https://doc.qt.io/qtforpython-6/tools/pyside-project.html>
@@ -57,49 +74,57 @@ files = [
   "i18n/translations.txt",
   "main.py",
   "packy/.gitignore",
-  "packy/__init__.py",
+  "packy/constants/__init__.py",
+  "packy/constants/file_filters.py",
+  "packy/constants/settings_keys.py",
+  "packy/constants/ui_strings.py",
   "packy/core/__init__.py",
-  "packy/core/debug_logger.py",
-  "packy/core/isettings_persistable.py",
-  "packy/core/labeled_enum.py",
-  "packy/core/settings.py",
-  "packy/core/ui_strings.py",
-  "packy/models/__init__.py",
-  "packy/models/files_model.py",
-  "packy/models/packer.py",
-  "packy/models/packer_data.py",
-  "packy/models/packer_factory.py",
-  "packy/models/packer_signals.py",
-  "packy/models/packer_type_data.py",
-  "packy/models/progression.py",
-  "packy/models/session.py",
-  "packy/models/session_decoder.py",
-  "packy/models/session_encoder.py",
-  "packy/models/tasks_model.py",
-  "packy/models/warnings.py",
-  "packy/models/zip_packer.py",
-  "packy/packy_app.py",
+  "packy/core/app.py",
+  "packy/core/app_config.py",
+  "packy/core/archiver.py",
+  "packy/core/archiver_config_model.py",
+  "packy/core/archiver_config_panel.py",
+  "packy/core/batch.py",
+  "packy/core/batch_workspace.py",
+  "packy/core/configurable.py",
+  "packy/core/localization.py",
+  "packy/core/logger.py",
+  "packy/core/user_settings.py",
+  "packy/graveyard/external_data_access.py",
+  "packy/graveyard/files_model.py",
+  "packy/graveyard/old_test_files_model.py",
+  "packy/graveyard/old_test_packer.py",
+  "packy/graveyard/old_test_zip_packer.py",
+  "packy/graveyard/packer.py",
+  "packy/graveyard/packer_factory.py",
+  "packy/graveyard/progression.py",
+  "packy/graveyard/session.py",
+  "packy/graveyard/session_decoder.py",
+  "packy/graveyard/session_encoder.py",
+  "packy/graveyard/task_list_model.py",
+  "packy/graveyard/task_model.py",
+  "packy/graveyard/tree_view_proxy_model.py",
+  "packy/graveyard/warnings.py",
+  "packy/graveyard/zip_packer.py",
   "packy/ui/__init__.py",
+  "packy/ui/about_dialog.py",
   "packy/ui/about_dialog.ui",
+  "packy/ui/fix_warnings.py",
   "packy/ui/fix_warnings.ui",
+  "packy/ui/main_window.py",
   "packy/ui/main_window.ui",
-  "packy/ui/new_session.ui",
+  "packy/ui/options_dialog.py",
   "packy/ui/options_dialog.ui",
-  "packy/ui/radio_group_binder.py",
   "packy/ui/ui_about_dialog.py",
   "packy/ui/ui_fix_warnings.py",
   "packy/ui/ui_main_window.py",
-  "packy/ui/ui_new_session.py",
   "packy/ui/ui_options_dialog.py",
   "packy/utils/__init__.py",
-  "packy/utils/external_data_access.py",
-  "packy/views/__init__.py",
-  "packy/views/about_dialog.py",
-  "packy/views/fix_warnings.py",
-  "packy/views/main_window.py",
-  "packy/views/messages_widget.py",
-  "packy/views/options_dialog.py",
-  "packy/views/tree_view_proxy_model.py",
+  "packy/utils/int_str_enum.py",
+  "packy/utils/translation.py",
+  "packy/widgets/__init__.py",
+  "packy/widgets/formatted_log_widget.py",
+  "packy/widgets/radio_group_widget.py",
   "resources/packy.qrc",
 ]
 
