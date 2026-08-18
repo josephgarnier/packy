@@ -61,7 +61,7 @@ PackY is a simple and intuitive application designed to create batch file archiv
 - [pipreqs](https://pypi.org/project/pipreqs/) - A requirements.txt file generator for any project based on imports
 - [PyInstaller](https://pypi.org/project/pyinstaller/) - Tool to bundle the app and all its dependencies into a single package
 - [Inno Setup](https://jrsoftware.org/isinfo.php) - An installation builder for Windows applications
-- [Ruff](https://docs.astral.sh/ruff/) - Code formatter and linter for catching bugs
+- [Ruff](https://docs.astral.sh/ruff/) - A code formatter and linter used to catch bugs
 
 ## 💾 Installation
 
@@ -93,7 +93,7 @@ To build, test, and deploy PackY, the following tools are required:
 - [Python 3.14 or later](https://www.python.org/).
 - [The pip package management tool](https://www.anaconda.com/docs/getting-started/working-with-conda/packages/pip-install).
 
-To verify that Conda, Python and pip are installed, open a terminal and run:
+To verify that Conda, Python, and pip are installed, open a terminal and run:
 
 ```bash
 conda --version
@@ -107,16 +107,16 @@ If an error occurs, download and install Miniconda by following the [official do
 
 ### Development tools
 
-The application is primarily developed using Visual Studio Code, as Qt provides useful integration tools to speed up development and simplify debugging.
+The application is primarily developed using Visual Studio Code, as Qt which provides useful integration tools that speed up development and simplify debugging.
 
-Therefore, [Visual Studio Code](https://code.visualstudio.com/) is recommended, along with the following extensions:
+[Visual Studio Code](https://code.visualstudio.com/) is therefore recommended, along with the following extensions:
 
-- [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python) (see [the doc](https://github.com/Microsoft/vscode-python)).
-- [Python Debugger](https://marketplace.visualstudio.com/items?itemName=ms-python.debugpy) (see [the doc](https://github.com/microsoft/vscode-python-debugger)).
-- [Python Environments](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-python-envs) (see [the doc](https://github.com/microsoft/vscode-python-environments)).
-- [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance) (see [the doc](https://github.com/microsoft/pylance-release)).
-- [Qt Python Extension Pack](https://marketplace.visualstudio.com/items?itemName=TheQtCompany.qt-python-pack) (see [the doc](https://doc.qt.io/qtforpython-6/tools/vscode-ext.html)).
-- [Ruff extension](https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff) (see [the doc](https://docs.astral.sh/ruff/)).
+- [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python) (see [the documentation](https://github.com/Microsoft/vscode-python)).
+- [Python Debugger](https://marketplace.visualstudio.com/items?itemName=ms-python.debugpy) (see [the documentation](https://github.com/microsoft/vscode-python-debugger)).
+- [Python Environments](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-python-envs) (see [the documentation](https://github.com/microsoft/vscode-python-environments)).
+- [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance) (see [the documentation](https://github.com/microsoft/pylance-release)).
+- [Qt Python Extension Pack](https://marketplace.visualstudio.com/items?itemName=TheQtCompany.qt-python-pack) (see [the documentation](https://doc.qt.io/qtforpython-6/tools/vscode-ext.html)).
+- [Ruff extension](https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff) (see [the documentation](https://docs.astral.sh/ruff/)).
 
 For UI design, [Qt Designer](https://doc.qt.io/qt-6/qtdesigner-manual.html) is recommended, as well as [Qt Linguist](https://doc.qt.io/qt-6/qtlinguist-index.html) for editing translation files.
 
@@ -140,8 +140,8 @@ For UI design, [Qt Designer](https://doc.qt.io/qt-6/qtdesigner-manual.html) is r
 
     Replace the following:
 
-    - `<ENV_NAME>` : A meaningful environment name.
-    - `<PYTHON_VERSION>` : The installed python version number (PackY use 3.14.3).
+    - `<ENV_NAME>` : A meaningful name for the environment.
+    - `<PYTHON_VERSION>` : The installed Python version (PackY use Python 3.14.3).
 
 3. Install the dependencies using one of the following methods:
 
@@ -299,11 +299,11 @@ To **deploy PackY**, follow these steps:
 
 ### Useful commands
 
-Several *commands* and *scripts* are available for the development of this project, including building, documentation generation, test execution, and deployment. The scripts are stored in the `scripts/` folder, and the commands can be run from a command prompt.
+Several *commands* and *scripts* are available for developing this project, including building the application, generating documentation, running tests, and deploying it. The scripts are stored in the `scripts/` folder, and the commands can be run from a terminal.
 
-For VS Code users, all commands have been defined as **Visual Studio Code [tasks](https://code.visualstudio.com/docs/debugtest/tasks)** in `.vscode/tasks.json` and can be launched from the [command palette](https://code.visualstudio.com/docs/editor/tasks).
+For VS Code users, all commands are defined as [**Visual Studio Code** tasks](https://code.visualstudio.com/docs/debugtest/tasks)** in `.vscode/tasks.json` and can be launched from the [command palette](https://code.visualstudio.com/docs/editor/tasks).
 
-The usage of commands and scripts is described below in the order of a typical development lifecycle. They must be executed from the root project directory:
+The usage of commands and scripts is described below in the order of a typical development workflow. They must be executed from the root project directory:
 
 - To **clean** build artifacts (remove compiled files in `packy/ui/` and the contents of the `build/` and `docs/` directories):
 
@@ -379,10 +379,10 @@ The usage of commands and scripts is described below in the order of a typical d
 
   - VS Code task: `PackY: Run`.
 
-- To **run the tests`** (execute the pytest command):
+- To **run the tests** (execute the `pytest` command):
 
   ```bash
-  pytest -v
+  pytest
   ```
 
   - VS Code task: `PackY: Test`.
@@ -420,6 +420,9 @@ The usage of commands and scripts is described below in the order of a typical d
 ```text
 project-root/
 ├── .vscode/                       # IDE workspace configuration
+│   ├── extension.json             # Recommended VS Code extensions to use
+│   ├── launch.json                # VS Code debugging configuration
+│   ├── settings.json              # Local VS Code settings
 │   └── tasks.json                 # Custom build and automation tasks for VS Code
 ├── build/                         # Generated files used during build and deployment processes
 ├── docs/                          # Project documentation (Markdown files)
@@ -436,7 +439,7 @@ project-root/
 │   ├── json/                      # JSON configuration and schema files
 │   └── yaml/                      # YAML configuration and metadata files
 ├── scripts/                       # Utility scripts for development, build, and automation tasks
-├── tests/                         # Unit and integration tests
+├── tests/                         # Unit, functional, and integration tests
 ├── tmp/                           # Temporary files generated during development or runtime
 ├── CHANGELOG.md                   # Project changelog (version history and notable changes)
 ├── CODE_OF_CONDUCT.md             # Contribution guidelines and community standards
@@ -451,7 +454,7 @@ project-root/
 
 ### Code conventions
 
-The PackY codebase must follow the [PEP 8 style guides](https://peps.python.org/pep-0008/), the naming convention already in place, and the [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html) for docstrings. Linting is performed using [Ruff](https://docs.astral.sh/ruff/) with the `ruff.toml` file located at the root of the project. Ruff is also used to format the source code.
+The PackY codebase must follow the [PEP 8 style guide](https://peps.python.org/pep-0008/), the existing naming conventions, and the [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html) for docstrings. Linting and formatting is performed using [Ruff](https://docs.astral.sh/ruff/) with the `ruff.toml` file located at the project root.
 
 When using VS Code, the [Ruff extension](https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff) is strongly recommended to display issues and format the code using the `Ruff: Format document` and `Ruff: Format imports` commands. Similarly, the [Pylance extension](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance) is strongly recommended for static type checking.
 
@@ -489,9 +492,9 @@ Git commit messages should follow the [Conventional Commits specification](https
 
 General links:
 
-- [PEP 8 style guides](https://peps.python.org/pep-0008/)
+- [PEP 8 style guide](https://peps.python.org/pep-0008/)
 - [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html)
-- [Conventional Commits style](https://www.conventionalcommits.org/)
+- [Conventional Commits specification](https://www.conventionalcommits.org/)
 
 Sphinx documentation:
 
@@ -502,7 +505,7 @@ Qt documentation:
 
 - [Qt for Python](https://doc.qt.io/qtforpython-6/index.html)
 - [Qt Extension for VS Code](https://doc-snapshots.qt.io/vscodeext-dev/index.html)
-- [Qt Python VSCode Extension](https://doc.qt.io/qtforpython-6/tools/vscode-ext.html)
+- [Qt Python VS Code Extension](https://doc.qt.io/qtforpython-6/tools/vscode-ext.html)
 - [Qt Designer for UI design](https://doc.qt.io/qt-6/qtdesigner-manual.html)
 - [Qt Linguist for translation](https://doc.qt.io/qt-6/qtlinguist-index.html).
 - [PySide6 Tools](https://doc.qt.io/qtforpython-6/tools/index.html)
@@ -520,10 +523,10 @@ Other tools documentation:
 - [pipreqs](https://github.com/bndr/pipreqs)
 - [PyInstaller](https://pyinstaller.org/en/stable/)
 - [Ruff](https://docs.astral.sh/ruff/)
-- [Python VSCode extension](https://github.com/Microsoft/vscode-python)
-- [Python Debugger VSCode extension](https://github.com/microsoft/vscode-python-debugger)
-- [Python Environments VSCode extension](https://github.com/microsoft/vscode-python-environments)
-- [Pylance VSCode extension](https://github.com/microsoft/pylance-release)
+- [Python VS Code extension](https://github.com/Microsoft/vscode-python)
+- [Python Debugger VS Code extension](https://github.com/microsoft/vscode-python-debugger)
+- [Python Environments VS Code extension](https://github.com/microsoft/vscode-python-environments)
+- [Pylance VS Code extension](https://github.com/microsoft/pylance-release)
 
 ## 🤝 Contributing
 
@@ -662,4 +665,4 @@ This project is maintained and developed by [Marie-Neige Chapel](https://github.
 
 ## ©️ License
 
-This work is licensed under the terms of the <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">GNU GPLv3</a>.  See the [LICENSE.md](LICENSE.md) file for details.
+This work is licensed under the terms of the <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">GNU GPLv3</a>. See the [LICENSE.md](LICENSE.md) file for details.
