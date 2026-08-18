@@ -57,13 +57,36 @@ include_files = ["resources"]
 typeCheckingMode = "strict"
 
 [tool.pytest]
-addopts = ["-vvv", "-ra", "--import-mode=importlib"]
+addopts = [
+  "-vvv",
+  "-ra",
+  "--import-mode=importlib",
+  "--strict-markers",
+  "--qt-log-format=[{rec.when:%Y-%m-%dT%H:%M:%S.%f}][{rec.context.file}:{rec.context.line}][{rec.log_type_name}]: {rec.message}",
+]
 cache_dir= "tests/.pytest_cache"
 console_output_style = "classic"
 minversion = "9.0.3"
-pythonpath = ["packy"]
+pythonpath = ["."]
 testpaths = ["tests"]
 norecursedirs = ["data"]
+markers = [
+  "scenario_happy_path: TODO",
+  "scenario_alternate_path: TODO",
+  "scenario_invalid_input: TODO",
+  "scenario_failure_error_path: TODO",
+  "technique_equivalence_partitioning: TODO",
+  "technique_boundary_value_analysis: TODO",
+  "technique_decision_table: TODO",
+  "technique_state_transition: TODO",
+  "technique_branch: TODO",
+  "technique_error_guessing: TODO",
+]
+# Note: Console and file logging are enabled only in debug mode, via VS Code's 'launch.json'.
+log_level = "DEBUG"
+log_date_format = "%Y-%m-%dT%H:%M:%S.%f%:z"
+log_format = "[%(asctime)s][%(process)d,0x%(thread)x][%(pathname)s:%(lineno)d][%(levelname)s]: %(message)s"
+log_file_mode = "w"
 required_plugins = ["pytest-qt>=4.5.0"]
 
 [tool.pyside6-project]
