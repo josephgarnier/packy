@@ -8,6 +8,7 @@
       "name": "Python Debugger: Current File",
       "type": "debugpy",
       "request": "launch",
+      "cwd": "${workspaceFolder}",
       "program": "${file}",
       "console": "integratedTerminal"
     },
@@ -15,9 +16,42 @@
       "name": "Python Debugger: PackY",
       "type": "debugpy",
       "request": "launch",
-      "program": "${workspaceFolder}/main.py",
+      "cwd": "${workspaceFolder}",
+      "program": "main.py",
       "preLaunchTask": "PackY: Build",
       "console": "integratedTerminal",
+    },
+    {
+      "name": "Python Tests Debugger: Testing Panel",
+      "type": "debugpy",
+      "request": "launch",
+      "purpose": [
+        "debug-test"
+      ],
+      "console": "integratedTerminal",
+      "env": {
+        "PYTEST_ADDOPTS": "-o log_cli=true -o log_file=logs/pytest.log",
+        "QT_MESSAGELOGCONTEXT": "1",
+        "QT_MESSAGE_PATTERN": "[%{time yyyy-MM-ddTHH:mm:ss.zzz}][%{pid},%{threadid}][%{file}:%{line}][%{type}]: %{message}"
+      },
+      "justMyCode": true
+    },
+    {
+      "name": "Python Tests Debugger: Current File",
+      "type": "debugpy",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "module": "pytest",
+      "args": [
+        "${file}"
+      ],
+      "console": "integratedTerminal",
+      "env": {
+        "PYTEST_ADDOPTS": "-o log_cli=true -o log_file=logs/pytest.log",
+        "QT_MESSAGELOGCONTEXT": "1",
+        "QT_MESSAGE_PATTERN": "[%{time yyyy-MM-ddTHH:mm:ss.zzz}][%{pid},%{threadid}][%{file}:%{line}][%{type}]: %{message}"
+      },
+      "justMyCode": true
     }
   ]
 }

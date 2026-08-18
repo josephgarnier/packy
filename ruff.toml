@@ -10,12 +10,13 @@ ignore = [
 ]
 fixable = ["ALL"]
 unfixable = []
+future-annotations = true
 
 [lint.per-file-ignores]
 "**/{tests}/*" = [
   "PLR2004", # magic-value-comparison
-  "D102", # undocumented-public-method
   "D107", # undocumented-public-init
+  "SLF001", # private-member-access
 ]
 
 [format]

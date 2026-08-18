@@ -184,7 +184,7 @@
       },
       "command": "${command:python.interpreterPath}",
       "args": [
-        "main.py"
+        "main.py",
       ],
       "presentation": {
         "echo": true,
@@ -198,7 +198,7 @@
     },
     {
       "label": "PackY: Test",
-      "detail": "Run the unit tests",
+      "detail": "Run the tests",
       "type": "shell",
       "options": {
         "cwd": "${workspaceFolder}"
@@ -265,5 +265,5 @@
       "id": "isoLocaleCode",
       "description": "IOS 639 and 3166 local code, e.g., 'fr-FR', 'en-GB', 'de-DE'.",
     }
-  ]
+  ],
 }
