@@ -17,6 +17,8 @@ future-annotations = true
   "PLR2004", # magic-value-comparison
   "D107", # undocumented-public-init
   "SLF001", # private-member-access
+  "PLR0913", # too-many-arguments
+  "PLR0917", # too-many-positional-arguments
 ]
 
 [format]
