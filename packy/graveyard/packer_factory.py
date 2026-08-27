@@ -6,12 +6,12 @@ See LICENCE.md file for more information.
 """
 
 # PackY
-from packy.models.tasks_model import TasksModel
-from packy.models.zip_packer import ZipPacker
+from packy.graveyard.task_list_model import TaskListModel
+from packy.graveyard.zip_packer import ZipPacker
 
 
 # -----------------------------------------------------------------------------
-def createPacker(task: TasksModel):
+def createPacker(task: TaskListModel):
     extension = task.packerData().extension()
 
     match extension:

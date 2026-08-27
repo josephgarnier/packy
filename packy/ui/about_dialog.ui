@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0">
+<ui version="4.0" connectslotsbyname="false">
  <class>AboutDialog</class>
  <widget class="QDialog" name="AboutDialog">
   <property name="geometry">
@@ -28,7 +28,7 @@
         </size>
        </property>
        <property name="pixmap">
-        <pixmap resource="../../resources/packy.qrc">:/img/logo</pixmap>
+        <pixmap>:/img/logo</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>

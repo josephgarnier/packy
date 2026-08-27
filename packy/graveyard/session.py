@@ -15,7 +15,7 @@ from PySide6 import QtCore
 from PySide6.QtCore import Qt, QAbstractTableModel, QModelIndex, QCoreApplication
 
 # PackY
-from packy.models.tasks_model import TasksModel
+from packy.graveyard.task_list_model import TaskListModel
 
 
 ###############################################################################
@@ -78,7 +78,7 @@ class Session(QAbstractTableModel):
 
         # -------------------------------------------------------------------------
 
-    def taskAt(self, row: int) -> TasksModel:
+    def taskAt(self, row: int) -> TaskListModel:
         return self.__tasks[row]
 
         # -------------------------------------------------------------------------
@@ -216,7 +216,7 @@ class Session(QAbstractTableModel):
         if len(self.__tasks) > 0:
             task_id = self.__tasks[-1].id() + 1
 
-        task = TasksModel(task_id)
+        task = TaskListModel(task_id)
         self.__tasks.append(task)
         task.statusChanged.connect(self.emitDataChanged)
 

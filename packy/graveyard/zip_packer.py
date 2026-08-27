@@ -11,9 +11,9 @@ import zipfile
 from zipfile import ZipFile
 
 # PackY
-from packy.models.packer import Packer
-from packy.models.archiver_config_model import ArchiverConfigModel
-from packy.models.tasks_model import TasksModel
+from packy.graveyard.packer import Packer
+from packy.core.archiver_config_model import ArchiverConfigModel
+from packy.graveyard.task_list_model import TaskListModel
 
 
 ###############################################################################
@@ -23,7 +23,7 @@ class ZipPacker(Packer):
     ###########################################################################
 
     # -------------------------------------------------------------------------
-    def __init__(self, task: TasksModel):
+    def __init__(self, task: TaskListModel):
         super(ZipPacker, self).__init__(task)
 
     ###########################################################################
@@ -31,7 +31,7 @@ class ZipPacker(Packer):
     ###########################################################################
 
     # -------------------------------------------------------------------------
-    def packTmpFolder(self, task: TasksModel, tmp_folder_path: str):
+    def packTmpFolder(self, task: TaskListModel, tmp_folder_path: str):
         try:
             destination_filename = task.destFile()
             packer_data = task.packerData()

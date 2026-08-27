@@ -14,8 +14,8 @@ import shutil
 from PySide6.QtCore import Qt, QRunnable, QStandardPaths
 
 # PackY
-from packy.core.settings import PreferencesGeneral, PreferencesKeys, PreferencesTask
-from packy.models.tasks_model import TasksModel, TaskStatus
+from packy.core.user_settings import PreferencesGeneral, PreferencesKeys, PreferencesTask
+from packy.graveyard.task_list_model import TaskListModel, TaskStatus
 # from packy.models.packer_signals import PackerSignals
 
 # Python debug
@@ -41,7 +41,7 @@ class Packer(QRunnable):
     ###########################################################################
 
     # -------------------------------------------------------------------------
-    def __init__(self, task: TasksModel):
+    def __init__(self, task: TaskListModel):
         super(Packer, self).__init__()
 
         # self.signals = PackerSignals()

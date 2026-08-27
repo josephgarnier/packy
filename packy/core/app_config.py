@@ -1,7 +1,4 @@
-"""Application-wide configuration definitions.
-
-This module provides runtime configuration values used throughout the
-application.
+"""Define immutable application configuration definitions.
 
 Copyright 2023-present, Marie-Neige Chapel and Joseph Garnier
 All rights reserved.
@@ -16,35 +13,46 @@ from PySide6.QtCore import QStandardPaths
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import final
+from typing import Final, final
 
 
 ###############################################################################
 @final
 @dataclass(frozen=True, slots=True)
 class AppConfig:
-    """Immutable application configuration container.
-
-    Stores derived runtime configuration values.
+    """Store immutable application configuration values.
 
     Attributes:
-        VERSION (str): Application current version.
-        LOG_FILE_PATH (Path): Absolute path to the application log file.
+        DEFAULT_LANGUAGE_CODE (Final[str]): Default locale code used by the
+          application.
+        MAX_RECENT_BATCHES (Final[int]): Maximum number of recent batches retained.
+        VERSION (Final[str]): Application version.
+        LOG_FILE_PATH (Final[Path]): Log file path for the current execution
+          environment.
     """
 
-    VERSION: str = "0.9.0.0"
-    LOG_FILE_PATH: Path = field(init=False)
+    DEFAULT_LANGUAGE_CODE: Final[str] = "en-US"
+    MAX_RECENT_BATCHES: Final[int] = 5
+    VERSION: Final[str] = "0.9.0.0"
+    LOG_FILE_PATH: Final[Path] = field(
+        init=False,
+        default_factory=lambda: AppConfig._determine_log_path(),  # noqa: PLW0108
+    )
 
-    def __post_init__(self) -> None:
-        """Initializes derived configuration paths after dataclass creation."""
+    @staticmethod
+    def _determine_log_path() -> Path:
+        """Determine the log file path for the current execution environment.
+
+        Development executions use ``./logs/log.txt``. Frozen application executions
+        use ``log.txt`` in Qt's writable application-data location.
+
+        Returns:
+            Path: Path to the application log file.
+        """
         in_dev_mode = not getattr(sys, "frozen", False)
         if in_dev_mode:
             folder_path = Path("./logs")
         else:
             app_data_location = QStandardPaths.StandardLocation.AppDataLocation
             folder_path = Path(QStandardPaths.writableLocation(app_data_location))
-        object.__setattr__(
-            self,
-            "LOG_FILE_PATH",
-            folder_path / "log.txt",
-        )
+        return folder_path / "app.log"

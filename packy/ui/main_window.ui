@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0">
+<ui version="4.0" connectslotsbyname="false">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
@@ -25,7 +25,7 @@
        </widget>
       </item>
       <item>
-       <widget class="MessagesWidget" name="messages_view">
+       <widget class="AppLogWidget" name="messages_view">
         <property name="focusPolicy">
          <enum>Qt::FocusPolicy::NoFocus</enum>
         </property>
@@ -186,7 +186,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="archiver_config_group">
+       <widget class="QGroupBox" name="archiver_config">
         <property name="enabled">
          <bool>true</bool>
         </property>
@@ -216,7 +216,7 @@
          <item row="0" column="1">
           <layout class="QHBoxLayout" name="format_layout" stretch="0,1">
            <item>
-            <layout class="QGridLayout" name="formats_grid_layout"/>
+            <layout class="QGridLayout" name="format_buttons_layout"/>
            </item>
            <item>
             <spacer name="format_spacer">
@@ -255,7 +255,7 @@
          <item row="1" column="1">
           <layout class="QHBoxLayout" name="compression_level_layout" stretch="0,1">
            <item>
-            <widget class="QComboBox" name="compression_level_combo">
+            <widget class="QComboBox" name="compression_level">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -301,7 +301,7 @@
          <item row="2" column="1">
           <layout class="QHBoxLayout" name="compression_method_layout" stretch="0,1">
            <item>
-            <widget class="QComboBox" name="compression_method_combo">
+            <widget class="QComboBox" name="compression_method">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -341,6 +341,9 @@
       </item>
       <item>
        <widget class="QTableView" name="job_queue_table_view">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="minimumSize">
          <size>
           <width>480</width>
@@ -374,6 +377,9 @@
        <layout class="QHBoxLayout" name="job_top_buttons_layout">
         <item>
          <widget class="QPushButton" name="create_job_button">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -663,33 +669,33 @@
       <string>Open &amp;Recent</string>
      </property>
      <addaction name="separator"/>
-     <addaction name="clear_list_action"/>
+     <addaction name="action_clear_list"/>
     </widget>
-    <addaction name="new_batch_action"/>
-    <addaction name="open_batch_action"/>
+    <addaction name="action_new_batch"/>
+    <addaction name="action_open_batch"/>
     <addaction name="open_recent_menu"/>
     <addaction name="separator"/>
-    <addaction name="save_batch_action"/>
-    <addaction name="save_batch_as_action"/>
+    <addaction name="action_save_batch"/>
+    <addaction name="action_save_batch_as"/>
     <addaction name="separator"/>
-    <addaction name="options_action"/>
+    <addaction name="action_options"/>
     <addaction name="separator"/>
-    <addaction name="close_batch_action"/>
-    <addaction name="exit_action"/>
+    <addaction name="action_close_batch"/>
+    <addaction name="action_exit"/>
    </widget>
    <widget class="QMenu" name="help_menu">
     <property name="title">
      <string>&amp;Help</string>
     </property>
-    <addaction name="open_log_folder_action"/>
-    <addaction name="github_repo_action"/>
-    <addaction name="about_action"/>
+    <addaction name="action_open_log_folder"/>
+    <addaction name="action_github_repo"/>
+    <addaction name="action_about"/>
    </widget>
    <addaction name="file_menu"/>
    <addaction name="help_menu"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
-  <action name="about_action">
+  <widget class="QStatusBar" name="status_bar"/>
+  <action name="action_about">
    <property name="text">
     <string>About</string>
    </property>
@@ -697,7 +703,7 @@
     <enum>QAction::MenuRole::AboutRole</enum>
    </property>
   </action>
-  <action name="exit_action">
+  <action name="action_exit">
    <property name="icon">
     <iconset theme="QIcon::ThemeIcon::ApplicationExit"/>
    </property>
@@ -711,12 +717,12 @@
     <enum>QAction::MenuRole::QuitRole</enum>
    </property>
   </action>
-  <action name="github_repo_action">
+  <action name="action_github_repo">
    <property name="text">
     <string>GitHub Repository</string>
    </property>
   </action>
-  <action name="options_action">
+  <action name="action_options">
    <property name="icon">
     <iconset theme="QIcon::ThemeIcon::DocumentProperties"/>
    </property>
@@ -727,7 +733,7 @@
     <enum>QAction::MenuRole::PreferencesRole</enum>
    </property>
   </action>
-  <action name="save_batch_action">
+  <action name="action_save_batch">
    <property name="icon">
     <iconset theme="QIcon::ThemeIcon::DocumentSave"/>
    </property>
@@ -738,7 +744,7 @@
     <string>Ctrl+S</string>
    </property>
   </action>
-  <action name="new_batch_action">
+  <action name="action_new_batch">
    <property name="icon">
     <iconset theme="QIcon::ThemeIcon::DocumentNew"/>
    </property>
@@ -749,7 +755,7 @@
     <string>Ctrl+N</string>
    </property>
   </action>
-  <action name="open_batch_action">
+  <action name="action_open_batch">
    <property name="icon">
     <iconset theme="QIcon::ThemeIcon::DocumentOpen"/>
    </property>
@@ -760,7 +766,7 @@
     <string>Ctrl+O</string>
    </property>
   </action>
-  <action name="save_batch_as_action">
+  <action name="action_save_batch_as">
    <property name="icon">
     <iconset theme="QIcon::ThemeIcon::DocumentSaveAs"/>
    </property>
@@ -771,12 +777,12 @@
     <string>Ctrl+Alt+S</string>
    </property>
   </action>
-  <action name="open_log_folder_action">
+  <action name="action_open_log_folder">
    <property name="text">
     <string>Open Log Folder</string>
    </property>
   </action>
-  <action name="close_batch_action">
+  <action name="action_close_batch">
    <property name="icon">
     <iconset theme="QIcon::ThemeIcon::WindowClose"/>
    </property>
@@ -787,7 +793,7 @@
     <string>Ctrl+W</string>
    </property>
   </action>
-  <action name="clear_list_action">
+  <action name="action_clear_list">
    <property name="icon">
     <iconset theme="QIcon::ThemeIcon::EditClear"/>
    </property>
@@ -798,9 +804,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MessagesWidget</class>
+   <class>AppLogWidget</class>
    <extends>QTextEdit</extends>
-   <header>packy.views.messages_widget</header>
+   <header>packy.widgets.app_log_widget</header>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -815,8 +821,8 @@
   <tabstop>check_integrity_button</tabstop>
   <tabstop>destination_folder_input</tabstop>
   <tabstop>destination_folder_browser</tabstop>
-  <tabstop>compression_level_combo</tabstop>
-  <tabstop>compression_method_combo</tabstop>
+  <tabstop>compression_level</tabstop>
+  <tabstop>compression_method</tabstop>
  </tabstops>
  <resources/>
  <connections/>

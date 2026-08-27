@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0">
+<ui version="4.0" connectslotsbyname="false">
  <class>OptionsDialog</class>
  <widget class="QDialog" name="OptionsDialog">
   <property name="geometry">
@@ -195,7 +195,7 @@
   <slot>apply()</slot>
  </slots>
  <buttongroups>
-  <buttongroup name="archive_naming_button_group"/>
   <buttongroup name="retention_policy_button_group"/>
+  <buttongroup name="archive_naming_button_group"/>
  </buttongroups>
 </ui>

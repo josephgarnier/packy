@@ -12,7 +12,7 @@ See LICENCE.md file for more information.
 """
 
 # Local application
-from packy.models.warnings import Warnings
+from packy.graveyard.warnings import Warnings
 
 # Third-party
 from PySide6 import QtCore

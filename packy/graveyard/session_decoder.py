@@ -13,9 +13,9 @@ from jsonschema import SchemaError, ValidationError, validate
 from PySide6 import QtCore
 
 # PackY
-from packy.models.session import Session
-from packy.models.tasks_model import TasksModel
-from packy.utils.external_data_access import ExternalData, external_data_path
+from packy.graveyard.session import Session
+from packy.graveyard.task_list_model import TaskListModel
+from packy.graveyard.external_data_access import ExternalData, external_data_path
 
 
 ###############################################################################
@@ -68,5 +68,5 @@ class SessionDecoder(json.JSONDecoder):
 
     # -------------------------------------------------------------------------
     def __deserializeTask(self, dict):
-        task = TasksModel(0, dict)
+        task = TaskListModel(0, dict)
         return task
