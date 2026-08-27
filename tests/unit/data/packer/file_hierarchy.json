@@ -1,0 +1,59 @@
+{
+	"root":[
+		{
+			"type": "folder",
+			"path": "tmp_path/results"
+		},
+		{
+			"type": "folder",
+			"path": "tmp_path/folder",
+			"children":[
+				{
+					"type": "file",
+					"path": "tmp_path/folder/file_1.txt"
+				},
+				{
+					"type": "folder",
+					"path": "tmp_path/folder/dir_1",
+					"children":[
+						{
+							"type": "file",
+							"path": "tmp_path/folder/dir_1/file_2.txt"
+						},
+						{
+							"type": "file",
+							"path": "tmp_path/folder/dir_1/file_3.txt"
+						}
+					]
+				},
+				{
+					"type": "folder",
+					"path": "tmp_path/folder/dir_2",
+					"children":[]
+				}
+			]
+		},
+		{
+			"type": "folder",
+			"path": "tmp_path/snapshots",
+			"children":[
+				{
+					"type": "zip",
+					"path": "tmp_path/snapshots/output_1.zip"
+				},
+				{
+					"type": "zip",
+					"path": "tmp_path/snapshots/output_2.zip"
+				},
+				{
+					"type": "zip",
+					"path": "tmp_path/snapshots/output_3.zip"
+				},
+				{
+					"type": "zip",
+					"path": "tmp_path/snapshots/output_4.zip"
+				}
+			]
+		}
+	]
+}
